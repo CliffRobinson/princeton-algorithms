@@ -60,15 +60,20 @@ public class Percolation {
 
 
 	public void joinNeighbours(int row, int col) {
-		for (int i = row-1; i <= row+1 ; i+=2) {
-			for (int j = col-1; j <= col+1 ; j+=2) {
-				if (this.cellInBoundary(i,j)) {
-					this.uf.union(this.translate(row, col), this.translate(i, j));
-				}
-			}
-		}
+		joinPair(row, col, row-1, col);
+		joinPair(row, col, row+1, col);
+		joinPair(row, col, row, col-1);
+		joinPair(row, col, row, col+1);
+		 
 	}
 
+	public void joinPair(int row, int col, int i, int j) {
+		if (this.cellInBoundary(i,j) && this.grid[i][j]) {
+			//System.out.printf("Joining %d-%d to %d-%d\n", row, col, i, j);
+			this.uf.union(this.translate(row, col), this.translate(i, j));
+		}
+	}
+	
 	public int translate(int row, int col) {
 		int output = ((row-1) * (this.n-1))+col;
 		//System.out.printf("Row %d and col %d gives translation %d", row, col, output);
@@ -123,12 +128,15 @@ public class Percolation {
 		p.open(2, 2);
 		p.open(2, 3);
 
+
 		p.showGrid();
 		
 		System.out.println(p.percolates());
 		
 		p.open(3, 2);
+		
 		p.showGrid();
+		
 		System.out.println(p.percolates());
 
 	}
