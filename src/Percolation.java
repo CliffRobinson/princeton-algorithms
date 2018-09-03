@@ -2,9 +2,6 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import java.io.File;
 //import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-
 import java.util.Scanner;
 
 public class Percolation {
@@ -21,7 +18,7 @@ public class Percolation {
 	public String whiteSquare = "  ";
 
 	public Percolation (int input) {
-		
+
 		if (input <= 0) {
 			throw new IllegalArgumentException();
 		} else {
@@ -38,7 +35,62 @@ public class Percolation {
 
 		}
 	}	
-	public boolean getCell(int row, int col) {
+
+	public void open (int row, int col) {
+		this.setCell(row, col, true);
+	}
+		
+	public boolean isOpen(int row, int col) {
+		return this.getCell(row, col);
+	}
+
+	public boolean isFull(int row, int col) {
+		return !this.isOpen(row, col);
+	}
+	
+	public int numberOfOpenSites() {
+		return this.openSites;
+	}
+
+	public boolean percolates() {
+		if (this.grid.length == 2) {
+			return this.grid[1][1];
+		} else {
+			return this.uf.connected(0, this.siteCount);
+		}
+
+	}
+
+	private boolean cellInBoundary(int row, int col) {
+		return (row > 0 && row < this.n && col > 0 && col < this.n);
+	}
+	
+	private void showGrid() {
+
+		String boundary = "**";
+
+		for (int i = 0; i < (this.n-1)*2; i++) {
+			boundary = boundary + "*";
+		}
+
+		System.out.println(boundary);
+
+		for (int i = 1; i < this.grid.length ; i++) {
+			System.out.print("*");
+			for (int j = 1; j <this.grid[i].length; j++) {
+				if(this.isFull(i, j)) {
+					System.out.print(this.blackSquare);
+				} else {
+					System.out.print(this.whiteSquare);
+				}
+			}
+			System.out.print("*");
+			System.out.println("");
+		}
+		System.out.println(boundary);
+	}
+
+	private boolean getCell(int row, int col) {
 		if ( this.cellInBoundary(row, col) ) {
 			return this.grid[row][col];
 		} else {
@@ -46,7 +98,7 @@ public class Percolation {
 		}
 	}
 
-	public void setCell(int row, int col, boolean value) {
+	private void setCell(int row, int col, boolean value) {
 		if (this.cellInBoundary(row, col)) {
 			this.grid[row][col] = value;
 			if (value) {
@@ -62,105 +114,94 @@ public class Percolation {
 		}
 	}
 
-
-	public void joinNeighbours(int row, int col) {
+	private void joinNeighbours(int row, int col) {
 		joinPair(row, col, row-1, col);
 		joinPair(row, col, row+1, col);
 		joinPair(row, col, row, col-1);
 		joinPair(row, col, row, col+1);
-		 
+
 	}
 
-	public void joinPair(int row, int col, int i, int j) {
+	private void joinPair(int row, int col, int i, int j) {
 		if (this.cellInBoundary(i,j) && this.grid[i][j]) {
 			//System.out.printf("Joining %d-%d to %d-%d\n", row, col, i, j);
 			this.uf.union(this.translate(row, col), this.translate(i, j));
 		}
 	}
-	
-	public int translate(int row, int col) {
+
+	private int translate(int row, int col) {
 		int output = ((row-1) * (this.n-1))+col;
 		//System.out.printf("Row %d and col %d gives translation %d\n", row, col, output);
 		return output;
 	}
+
 	
-	public int numberOfOpenSites() {
-		return this.openSites;
-	}
-
-	public boolean cellInBoundary(int row, int col) {
-		return (row > 0 && row < this.n && col > 0 && col < this.n);
-	}
-
-	public void open (int row, int col) {
-		this.setCell(row, col, true);
-	}
-
-	public boolean isOpen(int row, int col) {
-		return this.getCell(row, col);
-	}
-
-	public boolean isFull(int row, int col) {
-		return !this.isOpen(row, col);
-	}
-
-	public boolean percolates() {
-		return this.uf.connected(0, this.siteCount);
-	}
-
-	public void showGrid() {
-		for (int i = 1; i < this.grid.length ; i++) {
-			for (int j = 1; j <this.grid[i].length; j++) {
-				if(this.isFull(i, j)) {
-					System.out.print(this.blackSquare);
-				} else {
-					System.out.print(this.whiteSquare);
-				}
-			}
-			System.out.println("");
-		}
-
-	}
-
+	
 	public static void main(String[] args) {
 		File aDirectory = new File("./src/testData");
-	    
-	    FilenameFilter fileNameFilter = new FilenameFilter() {
-	    	@Override
-            public boolean accept(File dir, String name) {
-               if(name.lastIndexOf('.')>0) {
-                  // get last index for '.' char
-                  int lastIndex = name.lastIndexOf('.');
-                  // get extension
-                  String str = name.substring(lastIndex);
-                  // match path name extension
-                  if(str.equals(".txt")) {
-                     return true;
-                  }
-               }
-               return false;
-            }
-         };	    
-	    // get a listing of all files in the directory
-	    String[] filesInDir = aDirectory.list(fileNameFilter);
 
-	    // have everything i need, just print it now
-	    for ( int i=0; i<filesInDir.length; i++ ) {
-	      System.out.println( "file: " + filesInDir[i] );
-	    }
+		FilenameFilter fileNameFilter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				if(name.lastIndexOf('.')>0) {
+					// get last index for '.' char
+					int lastIndex = name.lastIndexOf('.');
+					// get extension
+					String str = name.substring(lastIndex);
+					// match path name extension
+					if(str.equals(".txt")) {
+						return true;
+					}
+				}
+				return false;
+			}
+		};	    
+		// get a listing of all files in the directory
+		String[] filesInDir = aDirectory.list(fileNameFilter);
+
+		// have everything i need, just print it now
+		for ( int i=0; i<filesInDir.length; i++ ) {
+			//System.out.printf( "file %d: %s \n", i,  filesInDir[i] );
+			File sample = new File("./src/testData/"+filesInDir[i]);
+			test(sample);
+		}
 		System.out.println("");
-	    File sample = new File("./src/testData/"+filesInDir[0]);
-	    
-	    try {
+
+
+
+	}
+	private static void test(File sample) {
+		try {
 			Scanner scn = new Scanner(sample);
-			
-		    scn.close();
+
+			System.out.print("Name: " + sample.getName());
+
+
+			int n = scn.nextInt();
+
+			Percolation p = new Percolation(n);
+
+			while(scn.hasNextInt()) {
+				int i = scn.nextInt();
+				int j = scn.nextInt();
+				p.open(i, j);
+			}
+			scn.close();
+
+
+			if (p.percolates()) {
+				System.out.print(" - Percolates.\n");
+			} else {
+				System.out.print(" - Does not percolate.\n");
+			}
+
+			//System.out.println("");
+			//p.showGrid();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
-
 	}
 
 }
