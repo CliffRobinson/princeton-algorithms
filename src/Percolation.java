@@ -9,9 +9,9 @@ public class Percolation {
 
 	private WeightedQuickUnionUF uf;
 
-	public char block = '\u2588';
-	public String blackSquare = this.block+""+this.block;
-	public String whiteSquare = "  ";
+//	private char block = '\u2588';
+//	private String blackSquare = this.block+""+this.block;
+//	private String whiteSquare = "  ";
 
 	public Percolation (int input) {
 
@@ -41,7 +41,8 @@ public class Percolation {
 	}
 
 	public boolean isFull(int row, int col) {
-		return !this.isOpen(row, col);
+		System.out.println("Testing fullness");
+		return this.uf.connected(0, this.translate(row, col));
 	}
 	
 	public int numberOfOpenSites() {
@@ -61,30 +62,30 @@ public class Percolation {
 		return (row > 0 && row < this.n && col > 0 && col < this.n);
 	}
 	
-	private void showGrid() {
-
-		String boundary = "**";
-
-		for (int i = 0; i < (this.n-1)*2; i++) {
-			boundary = boundary + "*";
-		}
-
-		System.out.println(boundary);
-
-		for (int i = 1; i < this.grid.length ; i++) {
-			System.out.print("*");
-			for (int j = 1; j <this.grid[i].length; j++) {
-				if(this.isFull(i, j)) {
-					System.out.print(this.blackSquare);
-				} else {
-					System.out.print(this.whiteSquare);
-				}
-			}
-			System.out.print("*");
-			System.out.println("");
-		}
-		System.out.println(boundary);
-	}
+//	private void showGrid() {
+//
+//		String boundary = "**";
+//
+//		for (int i = 0; i < (this.n-1)*2; i++) {
+//			boundary = boundary + "*";
+//		}
+//
+//		System.out.println(boundary);
+//
+//		for (int i = 1; i < this.grid.length ; i++) {
+//			System.out.print("*");
+//			for (int j = 1; j <this.grid[i].length; j++) {
+//				if(this.isOpen(i, j) == false) {
+//					System.out.print(this.blackSquare);
+//				} else {
+//					System.out.print(this.whiteSquare);
+//				}
+//			}
+//			System.out.print("*");
+//			System.out.println("");
+//		}
+//		System.out.println(boundary);
+//	}
 
 	private boolean getCell(int row, int col) {
 		if ( this.cellInBoundary(row, col) ) {
@@ -130,11 +131,9 @@ public class Percolation {
 		//System.out.printf("Row %d and col %d gives translation %d\n", row, col, output);
 		return output;
 	}
-
-	
 	
 	public static void main(String[] args) {
-
+		//testing functions shifted out to PercolationTester.
 		
 	}
 

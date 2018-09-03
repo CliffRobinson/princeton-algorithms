@@ -4,7 +4,7 @@ import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
 
-	private double[] estimates;
+	private final double[] estimates;
 	
 	public PercolationStats( int n, int trials) {
 		if  (n <= 0 || trials <= 0 ) {
@@ -48,7 +48,7 @@ public class PercolationStats {
 		while (!p.percolates()) {
 			int i = StdRandom.uniform(n)+1;
 			int j = StdRandom.uniform(n)+1;
-			if (p.isFull(i, j)) {
+			if (!p.isOpen(i, j)) {
 				p.open(i, j);
 			}
 		}
@@ -60,7 +60,7 @@ public class PercolationStats {
 	}
 	
 	public static void main(String[] args) {
-		
+		System.out.println("Running a test");
 		int n = Integer.parseInt(args[0]);
 		int T = Integer.parseInt(args[1]);
 		
