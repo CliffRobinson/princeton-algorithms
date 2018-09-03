@@ -24,7 +24,7 @@ public class PercolationStats {
 		
 		this.mean = StdStats.mean(this.estimates);
 		this.stdDev = StdStats.stddev(this.estimates);
-		this.confidenceInterval = 1.960*(this.stdDev/Math.sqrt(n));
+		this.confidenceInterval = 1.960*(this.stdDev/Math.sqrt(trials));
 		this.confidenceLo = this.mean - this.confidenceInterval;
 		this.confidenceHi = this.mean + this.confidenceInterval;
 	}
@@ -63,7 +63,7 @@ public class PercolationStats {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("Running a test");
+		//System.out.println("Running a test");
 		int n = Integer.parseInt(args[0]);
 		int T = Integer.parseInt(args[1]);
 		

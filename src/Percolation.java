@@ -42,7 +42,7 @@ public class Percolation {
 
 	public boolean isFull(int row, int col) {
 		//System.out.println("Testing fullness");
-		return this.isOpen(row, col) && this.uf.connected(0, this.translate(row, col));
+		return this.isOpen(row, col) && (this.uf.connected(this.siteCount, this.translate(row, col)) && this.uf.connected(0, this.translate(row, col)));
 	}
 
 	public int numberOfOpenSites() {
