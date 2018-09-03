@@ -24,7 +24,7 @@ import java.awt.Font;
 public class PercolationVisualizer {
 
     // delay in miliseconds (controls animation speed)
-    private static final int DELAY = 5000;
+    private static final int DELAY = 50;
 
     // draw n-by-n percolation system
     public static void draw(Percolation perc, int n) {
@@ -77,7 +77,7 @@ public class PercolationVisualizer {
             int i = in.readInt();
             int j = in.readInt();
             perc.open(i, j);
-            System.out.printf("Doing open(%d,%d)\n", i, j);
+            System.out.printf("Doing open(%d,%d)\nOpen cells count is %d\n", i, j, perc.numberOfOpenSites());
             draw(perc, n);
             StdDraw.show();
             StdDraw.pause(DELAY);

@@ -9,9 +9,9 @@ public class Percolation {
 
 	private WeightedQuickUnionUF uf;
 
-//	private char block = '\u2588';
-//	private String blackSquare = this.block+""+this.block;
-//	private String whiteSquare = "  ";
+	//	private char block = '\u2588';
+	//	private String blackSquare = this.block+""+this.block;
+	//	private String whiteSquare = "  ";
 
 	public Percolation (int input) {
 
@@ -35,16 +35,16 @@ public class Percolation {
 	public void open (int row, int col) {
 		this.setCell(row, col, true);
 	}
-		
+
 	public boolean isOpen(int row, int col) {
 		return this.getCell(row, col);
 	}
 
 	public boolean isFull(int row, int col) {
-		System.out.println("Testing fullness");
-		return this.uf.connected(0, this.translate(row, col));
+		//System.out.println("Testing fullness");
+		return this.isOpen(row, col) && this.uf.connected(0, this.translate(row, col));
 	}
-	
+
 	public int numberOfOpenSites() {
 		return this.openSites;
 	}
@@ -61,31 +61,31 @@ public class Percolation {
 	private boolean cellInBoundary(int row, int col) {
 		return (row > 0 && row < this.n && col > 0 && col < this.n);
 	}
-	
-//	private void showGrid() {
-//
-//		String boundary = "**";
-//
-//		for (int i = 0; i < (this.n-1)*2; i++) {
-//			boundary = boundary + "*";
-//		}
-//
-//		System.out.println(boundary);
-//
-//		for (int i = 1; i < this.grid.length ; i++) {
-//			System.out.print("*");
-//			for (int j = 1; j <this.grid[i].length; j++) {
-//				if(this.isOpen(i, j) == false) {
-//					System.out.print(this.blackSquare);
-//				} else {
-//					System.out.print(this.whiteSquare);
-//				}
-//			}
-//			System.out.print("*");
-//			System.out.println("");
-//		}
-//		System.out.println(boundary);
-//	}
+
+	//	private void showGrid() {
+	//
+	//		String boundary = "**";
+	//
+	//		for (int i = 0; i < (this.n-1)*2; i++) {
+	//			boundary = boundary + "*";
+	//		}
+	//
+	//		System.out.println(boundary);
+	//
+	//		for (int i = 1; i < this.grid.length ; i++) {
+	//			System.out.print("*");
+	//			for (int j = 1; j <this.grid[i].length; j++) {
+	//				if(this.isOpen(i, j) == false) {
+	//					System.out.print(this.blackSquare);
+	//				} else {
+	//					System.out.print(this.whiteSquare);
+	//				}
+	//			}
+	//			System.out.print("*");
+	//			System.out.println("");
+	//		}
+	//		System.out.println(boundary);
+	//	}
 
 	private boolean getCell(int row, int col) {
 		if ( this.cellInBoundary(row, col) ) {
@@ -97,17 +97,17 @@ public class Percolation {
 
 	private void setCell(int row, int col, boolean value) {
 		if (this.cellInBoundary(row, col)) {
-			this.grid[row][col] = value;
-			if (value) {
-				this.openSites++;
-				this.joinNeighbours(row, col);
-			} else if (this.openSites > 0) {
-				this.openSites--;
+			if (this.grid[row][col] != value) {
+				this.grid[row][col] = value;
+				if (value) {
+					this.openSites++;
+					this.joinNeighbours(row, col);
+				} else if (this.openSites > 0) {
+					this.openSites--;
+				}
 			}
-
 		} else {
-			System.out.printf("Row %d and column %d are out of boundary %d", row, col, this.n);
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Row "+row+" and column "+col+" are out of boundary "+this.n);
 		}
 	}
 
@@ -131,10 +131,10 @@ public class Percolation {
 		//System.out.printf("Row %d and col %d gives translation %d\n", row, col, output);
 		return output;
 	}
-	
+
 	public static void main(String[] args) {
 		//testing functions shifted out to PercolationTester.
-		
+
 	}
 
 

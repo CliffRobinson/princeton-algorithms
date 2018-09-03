@@ -5,6 +5,11 @@ import edu.princeton.cs.algs4.StdStats;
 public class PercolationStats {
 
 	private final double[] estimates;
+	private final double mean;
+	private final double stdDev;
+	private final double confidenceInterval;
+	private final double confidenceLo;
+	private final double confidenceHi;
 	
 	public PercolationStats( int n, int trials) {
 		if  (n <= 0 || trials <= 0 ) {
@@ -17,32 +22,30 @@ public class PercolationStats {
 			//System.out.println("Estimate: "+ estimates[i]);
 		}
 		
+		this.mean = StdStats.mean(this.estimates);
+		this.stdDev = StdStats.stddev(this.estimates);
+		this.confidenceInterval = 1.960*(this.stdDev/Math.sqrt(n));
+		this.confidenceLo = this.mean - this.confidenceInterval;
+		this.confidenceHi = this.mean + this.confidenceInterval;
 	}
 		
 	public double mean() {
-		return StdStats.mean(this.estimates);
+		return this.mean;
 	}
 	
 	public double stddev() {
-		return StdStats.stddev(this.estimates);
+		return this.stdDev;
 	}
-	
-	private double confidenceInterval() {
-		double stdDev = this.stddev();
-		double z = 1.960;
-		double n = this.estimates.length;
-		return z*(stdDev/Math.sqrt(n));
-	}
-	
+		
 	public double confidenceLo() {
-		return this.mean() - this.confidenceInterval();
+		return this.confidenceLo;
 	}
 	
 	public double confidenceHi() {
-		return this.mean() + this.confidenceInterval();
+		return this.confidenceHi;
 	}
 	
-	private double  trial(int n) {
+	private double trial(int n) {
 		Percolation p = new Percolation(n);
 				
 		while (!p.percolates()) {
