@@ -1,4 +1,11 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import java.io.File;
+//import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+
+import java.util.Scanner;
 
 public class Percolation {
 
@@ -7,10 +14,7 @@ public class Percolation {
 	private int n;
 	private int siteCount;
 
-
 	private WeightedQuickUnionUF uf;
-
-
 
 	public char block = '\u2588';
 	public String blackSquare = this.block+""+this.block;
@@ -76,8 +80,7 @@ public class Percolation {
 	
 	public int translate(int row, int col) {
 		int output = ((row-1) * (this.n-1))+col;
-		//System.out.printf("Row %d and col %d gives translation %d", row, col, output);
-		//System.out.println("");
+		//System.out.printf("Row %d and col %d gives translation %d\n", row, col, output);
 		return output;
 	}
 	
@@ -120,24 +123,43 @@ public class Percolation {
 	}
 
 	public static void main(String[] args) {
-		int n = 3; 
-		Percolation p = new Percolation(n);
+		File aDirectory = new File("./src/testData");
+	    
+	    FilenameFilter fileNameFilter = new FilenameFilter() {
+	    	@Override
+            public boolean accept(File dir, String name) {
+               if(name.lastIndexOf('.')>0) {
+                  // get last index for '.' char
+                  int lastIndex = name.lastIndexOf('.');
+                  // get extension
+                  String str = name.substring(lastIndex);
+                  // match path name extension
+                  if(str.equals(".txt")) {
+                     return true;
+                  }
+               }
+               return false;
+            }
+         };	    
+	    // get a listing of all files in the directory
+	    String[] filesInDir = aDirectory.list(fileNameFilter);
 
-
-		p.open(1, 3);
-		p.open(2, 2);
-		p.open(2, 3);
-
-
-		p.showGrid();
-		
-		System.out.println(p.percolates());
-		
-		p.open(3, 2);
-		
-		p.showGrid();
-		
-		System.out.println(p.percolates());
+	    // have everything i need, just print it now
+	    for ( int i=0; i<filesInDir.length; i++ ) {
+	      System.out.println( "file: " + filesInDir[i] );
+	    }
+		System.out.println("");
+	    File sample = new File("./src/testData/"+filesInDir[0]);
+	    
+	    try {
+			Scanner scn = new Scanner(sample);
+			
+		    scn.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 
 	}
 
