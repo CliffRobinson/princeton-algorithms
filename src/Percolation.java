@@ -6,6 +6,7 @@ public class Percolation {
 	private int openSites = 0;
 	private int n;
 	private int siteCount;
+	private boolean hasPercolated = false;
 
 	private WeightedQuickUnionUF uf;
 
@@ -41,8 +42,12 @@ public class Percolation {
 	}
 
 	public boolean isFull(int row, int col) {
-		//System.out.println("Testing fullness");
-		return this.isOpen(row, col) && this.uf.connected(0, this.translate(row, col));
+		if (this.hasPercolated) {
+			return this.isOpen(row, col) && this.uf.connected(0, this.translate(row, col));
+		} else {
+			return this.isOpen(row, col) && this.uf.connected(0, this.translate(row, col)); //is there a way I can change the behaviour of isfull once i know the system has percolated?
+		}
+		
 	}
 
 	public int numberOfOpenSites() {
@@ -50,14 +55,24 @@ public class Percolation {
 	}
 
 	public boolean percolates() {
+		if (this.hasPercolated) {
+			return true;
+		} // thus hasPercolated == false 
+		
+		boolean outcome;
 		if (this.grid.length == 2) {
-			return this.grid[1][1];
+			outcome =  this.grid[1][1];
 		} else {
-			return this.uf.connected(0, this.siteCount);
+			outcome =  this.uf.connected(0, this.siteCount);
 		}
 
+		if (outcome == false) return outcome;
+		
+		this.hasPercolated = true;
+		return true;
+		
 	}
-
+	
 	private boolean cellInBoundary(int row, int col) {
 		return (row > 0 && row < this.n && col > 0 && col < this.n);
 	}
