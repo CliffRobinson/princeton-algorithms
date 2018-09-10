@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
+import java.util.Iterator;
 
 public class DequeTester {
 
@@ -27,6 +28,24 @@ public class DequeTester {
 		}
 		System.out.print("\n");
 	}		
+	
+	public static void timeTrial(int n) {
+		Deque<Integer> time = new Deque<Integer>();
+		
+		Stopwatch stop1 = new Stopwatch();
+		for (int i = 0; i < n; i++) {
+			time.addFirst(i);
+		}
+		System.out.printf("Time to add %d is 		%f", n, stop1.elapsedTime());
+		
+		Stopwatch stop1a = new Stopwatch();
+		Iterator<Integer> t1i = time.iterator();
+		while(t1i.hasNext()) {
+			t1i.next();
+		}
+		System.out.printf("	Time to iterate thru %d is 	%f\n", n, stop1a.elapsedTime());
+	}
+	
 	
 	public static void main(String[] args) {
 		Deque<String> d = new Deque<String>();
@@ -81,19 +100,28 @@ public class DequeTester {
 		Object[] expectedArray = new Integer[num];
 		Object[] actualArray = new Integer[num];
 		
-		Stopwatch stoppy = new Stopwatch();
+		Stopwatch stop0 = new Stopwatch();
 		for (int i = 0; i < num; i++) {
 			Integer rando = StdRandom.uniform(1000);
 			expectedArray[i] = rando;
 			id.addFirst(rando);
 		}
-		System.out.printf("Time elapsed: %f\n", stoppy.elapsedTime());
+		System.out.printf("Time elapsed: %f\n", stop0.elapsedTime());
 		for (int i = 0; i< num; i++) {
 			actualArray[i] = id.removeLast();
 		}
 		
-		System.out.printf("Time elapsed: %f\n", stoppy.elapsedTime());
+		System.out.printf("Time elapsed: %f\n", stop0.elapsedTime());
 		testArray(expectedArray, actualArray, n++);		
-	}
+		
+		//Test 9: Time junk:
+		System.out.println("Test 9:");
+		timeTrial(10);
+		timeTrial(100);
+		timeTrial(1000);
+		timeTrial(10000);
+		timeTrial(100000);
+		timeTrial(1000000);	
 
+	}
 }
