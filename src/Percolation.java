@@ -9,10 +9,6 @@ public class Percolation {
 
 	private WeightedQuickUnionUF uf;
 
-	//	private char block = '\u2588';
-	//	private String blackSquare = this.block+""+this.block;
-	//	private String whiteSquare = "  ";
-
 	public Percolation (int input) {
 
 		if (input <= 0) {
@@ -62,30 +58,34 @@ public class Percolation {
 		return (row > 0 && row < this.n && col > 0 && col < this.n);
 	}
 
-	//	private void showGrid() {
-	//
-	//		String boundary = "**";
-	//
-	//		for (int i = 0; i < (this.n-1)*2; i++) {
-	//			boundary = boundary + "*";
-	//		}
-	//
-	//		System.out.println(boundary);
-	//
-	//		for (int i = 1; i < this.grid.length ; i++) {
-	//			System.out.print("*");
-	//			for (int j = 1; j <this.grid[i].length; j++) {
-	//				if(this.isOpen(i, j) == false) {
-	//					System.out.print(this.blackSquare);
-	//				} else {
-	//					System.out.print(this.whiteSquare);
-	//				}
-	//			}
-	//			System.out.print("*");
-	//			System.out.println("");
-	//		}
-	//		System.out.println(boundary);
-	//	}
+		public void showGrid() {
+	
+			char block = '\u2588';
+			String blackSquare = block+""+block;
+			String whiteSquare = "  ";
+			
+			String boundary = "**";
+	
+			for (int i = 0; i < (this.n-1)*2; i++) {
+				boundary = boundary + "*";
+			}
+	
+			System.out.println(boundary);
+	
+			for (int i = 1; i < this.grid.length ; i++) {
+				System.out.print("*");
+				for (int j = 1; j <this.grid[i].length; j++) {
+					if(this.isOpen(i, j) == false) {
+						System.out.print(blackSquare);
+					} else {
+						System.out.print(whiteSquare);
+					}
+				}
+				System.out.print("*");
+				System.out.println("");
+			}
+			System.out.println(boundary);
+		}
 
 	private boolean getCell(int row, int col) {
 		if ( this.cellInBoundary(row, col) ) {

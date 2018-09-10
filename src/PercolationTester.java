@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class PercolationTester {
 
 	public static void main(String[] args) {
-		File aDirectory = new File("./src/testData");
+		File aDirectory = new File("./src/percolationTestData");
 
 		FilenameFilter fileNameFilter = new FilenameFilter() {
 			@Override
@@ -29,7 +29,7 @@ public class PercolationTester {
 		// have everything i need, just print it now
 		for ( int i=0; i<filesInDir.length; i++ ) {
 			//System.out.printf( "file %d: %s \n", i,  filesInDir[i] );
-			File sample = new File("./src/testData/"+filesInDir[i]);
+			File sample = new File("./src/percolationTestData/"+filesInDir[i]);
 			test(sample);
 		}
 	}
@@ -60,7 +60,7 @@ public class PercolationTester {
 			}
 
 			//System.out.println("");
-			//p.showGrid();
+			p.showGrid();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
