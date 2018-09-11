@@ -85,18 +85,28 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	private class RandomizedQueueIterator implements Iterator<Item> {
 		
 		private Item[] shuffled;
-		private int n;
+		private int count;
+		private int i;
+		private int total;
 		
 		public RandomizedQueueIterator () {
-			shuffled = a;
+			
+			shuffled = (Item[]) new Object[a.length];
+			
+			for (int j = 0; j < a.length; j++) {
+				shuffled[j] = a[j];
+			}
+			
 			StdRandom.shuffle(shuffled);
-			this.n = 0;
+			this.count = 0;
+			this.i = 0;
+			this.total = n;
 		}
 		
 		public void remove() { throw new UnsupportedOperationException("Lel whet?"); }
 		
 		public boolean hasNext() {
-			return n < shuffled.length;
+			return count < total;
 		}
 		
 		public Item next() {
@@ -104,10 +114,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 			Item item = null;
 			
 			while (item == null) {
-				if (shuffled[n] != null) {
-					item = shuffled[n];
+				if (shuffled[i] != null) {
+					item = shuffled[i];
+					count++;
 				}
-				n++;
+				i++;
 			}
 			return item;
 			

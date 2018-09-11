@@ -115,6 +115,18 @@ public class RandomizedQueueTester {
 		timeTrial(10000);
 		timeTrial(100000);
 		
+		//Test 11: Simultaneous Iterators:
+		rq.enqueue("one");
+		rq.enqueue("two");
+		rq.enqueue("three");
+		rq.enqueue("four");
+		rq.enqueue("five");
+		
+		Iterator<String> rqi1 = rq.iterator();
+		Iterator<String> rqi2 = rq.iterator();
+		System.out.printf("1: %s, %s, %s, %s, %s,\n", rqi1.next(), rqi1.next(), rqi1.next(), rqi1.next(), rqi1.next() );
+		System.out.printf("2: %s, %s, %s, %s, %s, \n", rqi2.next(), rqi2.next(), rqi2.next(), rqi2.next(), rqi2.next() );
+		
 	}
 
 }
