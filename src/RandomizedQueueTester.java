@@ -1,3 +1,5 @@
+import edu.princeton.cs.algs4.Stopwatch;
+import java.util.Iterator;
 
 public class RandomizedQueueTester {
 
@@ -27,6 +29,27 @@ public class RandomizedQueueTester {
 		System.out.print("\n");
 	}
 
+	public static void timeTrial(int n) {
+		RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>();
+		Stopwatch loadClock = new Stopwatch();
+		for (int i = 0; i < n; i++) {
+			rq.enqueue(i);
+		}
+		double loadTime = loadClock.elapsedTime();
+		
+		Stopwatch iterateConstructorClock = new Stopwatch();
+		Iterator<Integer> rqi = rq.iterator();
+		double constructorTime = iterateConstructorClock.elapsedTime();
+		
+		Stopwatch iterateClock = new Stopwatch();
+		while(rqi.hasNext()) {
+			rqi.next();
+		}
+		double iterateTime = iterateClock.elapsedTime();
+		System.out.printf("N=%d:	Load: %f	Construct:	%f	Iterate:	%f\n", n, loadTime, constructorTime, iterateTime);
+		
+	}
+	
 	public static void main(String[] args) {
 		int n = 1;
 		RandomizedQueue<String> rq = new RandomizedQueue<String>();
@@ -34,7 +57,64 @@ public class RandomizedQueueTester {
 		//Test 1: isEmpty returns correctly for empty queue.
 		Object expected = (boolean) true;
 		Object actual = rq.isEmpty();
-		test(actual, expected, n);
+		test(actual, expected, n++);
+		
+		//Test 2: size returns correctly for empty queue.
+		expected = 0;
+		actual = rq.size();
+		test(actual, expected, n++);
+		
+		rq.enqueue("one");
+		
+		//Test 3: isEmpty returns correctly for queue with one item.
+		expected = false;
+		actual = rq.isEmpty();
+		test(actual, expected, n++);
+		
+		//Test 4: size returns correctly for queue with one item.
+		expected = 1;
+		actual = rq.size();
+		test(actual, expected, n++);
+		
+		//Test 5: sample works correctly with one item.
+		
+		expected = "one";
+		actual = rq.sample();
+		test(actual, expected, n++);
+		
+		//Test 6: deque works correctly with one item.
+		expected = "one";
+		actual = rq.dequeue();
+		test(actual, expected, n++);
+		
+		//Test 7: isEmpty returns correctly for queue post emptying.
+		expected = true;
+		actual = rq.isEmpty();
+		test(actual, expected, n++);
+		
+		//Test 8: size returns correctly for queue post emptying.
+		expected = 0;
+		actual = rq.size();
+		test(actual, expected, n++);
+		
+		//Test 9: enqueue "one" three times and see what happens.
+		
+		rq.enqueue("one");
+		rq.enqueue("one");
+		rq.enqueue("one");
+		
+		expected = "oneoneone";
+		actual = rq.dequeue()+rq.dequeue()+rq.dequeue();
+		test(actual, expected, n++);	
+		
+		//Test 10: Time trials.
+		n++;
+		System.out.println("Test 10:");
+		timeTrial(100);
+		timeTrial(1000);
+		timeTrial(10000);
+		timeTrial(100000);
+		
 	}
 
 }
