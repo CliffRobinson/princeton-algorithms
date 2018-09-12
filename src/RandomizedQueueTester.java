@@ -137,7 +137,7 @@ public class RandomizedQueueTester {
 		
 		System.out.printf("\nRQ is empty: %b\n", rq.isEmpty());
 		
-		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
+		System.out.printf("First dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
 		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
 		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
 		rq.enqueue("six");
