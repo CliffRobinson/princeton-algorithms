@@ -1,9 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.Stopwatch;
-
 import java.lang.IllegalArgumentException;
 import java.lang.UnsupportedOperationException;
 
