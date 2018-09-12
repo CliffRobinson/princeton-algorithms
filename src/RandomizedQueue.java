@@ -68,7 +68,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	
 	public Item sample() {
 		if (isEmpty()) {throw new NoSuchElementException("Tried to sample from empty queue.");}
-		int index = (n == 1 || n == 2) ? 0 : StdRandom.uniform(n-2);
+		int index = (n == 1) ? 0 : StdRandom.uniform(n-1);
 		return a[index];
 	}
 	
