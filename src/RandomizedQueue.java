@@ -50,7 +50,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	
 	public Item dequeue() {
 		if (isEmpty()) {throw new NoSuchElementException("Tried to deque from empty queue.");}
-		int index = (n == 1 || n == 2) ? 0 : StdRandom.uniform(n-2);
+		int index = (n == 1) ? 0 : StdRandom.uniform(n-1);
 		Item item = a[index];
 		
 		a[index] = a[n-1];
