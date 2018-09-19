@@ -9,7 +9,9 @@ public class Suite {
 		if (expected.equals(actual)) {
 			System.out.print("passed!");
 		} else {
-			System.out.print("FAILED.");
+			System.out.print("FAILED.\n");
+			System.out.printf("Expected: %s\n", expected.toString());
+			System.out.printf("Received: %s\n", actual.toString());
 		}
 		System.out.print("\n");
 	}
