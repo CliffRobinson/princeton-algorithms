@@ -3,12 +3,15 @@ import java.util.Iterator;
 
 public class RandomizedQueueTester {
 
-	private static void test(Object expected, Object actual, int n) {
+	private static void test(Object actual, Object expected, int n) {
 		System.out.printf("Test %d: ", n);
 		if (expected.equals(actual)) {
 			System.out.print("passed!");
 		} else {
-			System.out.print("FAILED.");
+			System.out.println("FAILED.");
+			System.out.println("Expected is "+ expected);
+			System.out.println("Actual is "+ actual);
+			
 		}
 		System.out.print("\n");
 	}
@@ -110,10 +113,13 @@ public class RandomizedQueueTester {
 		//Test 10: Time trials.
 		n++;
 		System.out.println("Test 10:");
-		timeTrial(100);
-		timeTrial(1000);
+		//timeTrial(100);
+		//timeTrial(1000);
 		timeTrial(10000);
 		timeTrial(100000);
+		timeTrial(1000000);
+		//timeTrial(10000000);
+		System.out.println("");
 		
 		//Test 11: Simultaneous Iterators:
 		rq.enqueue("one");
@@ -126,6 +132,23 @@ public class RandomizedQueueTester {
 		Iterator<String> rqi2 = rq.iterator();
 		System.out.printf("1: %s, %s, %s, %s, %s,\n", rqi1.next(), rqi1.next(), rqi1.next(), rqi1.next(), rqi1.next() );
 		System.out.printf("2: %s, %s, %s, %s, %s, \n", rqi2.next(), rqi2.next(), rqi2.next(), rqi2.next(), rqi2.next() );
+		
+		//Test 12: Internal data structure:
+		
+		System.out.printf("\nRQ is empty: %b\n", rq.isEmpty());
+		
+		System.out.printf("First dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
+		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
+		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
+		rq.enqueue("six");
+		rq.enqueue("seven");
+		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
+		rq.enqueue("eight");
+		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
+		rq.enqueue("nine");
+		rq.enqueue("ten");
+		System.out.printf("Dequed item is %s, n is %d\n", rq.dequeue(), rq.size());
+		
 		
 	}
 

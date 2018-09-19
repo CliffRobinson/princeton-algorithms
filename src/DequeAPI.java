@@ -1,5 +1,5 @@
 
-public class DequeAPI<Item> implements Iterable<Item> {
+public class DequeAPI<Item>/* implements Iterable<Item> */{
 	
 	public DequeAPI() {
 		
@@ -24,17 +24,17 @@ public class DequeAPI<Item> implements Iterable<Item> {
 		
 	}
 	
-	public Item removeFirst() {
-		
-	}
-	
-	public Item removeLast() {
-		
-	}
-	
-	public Iterator<Item> iterator() {
-		
-	}
+//	public Item removeFirst() {
+//
+//	}
+//	
+//	public Item removeLast() {
+//		
+//	}
+//	
+//	public Iterator<Item> iterator() {
+//		
+//	}
 	
 	public static void main(String[] args) {
 		

@@ -17,7 +17,6 @@ public class Permutation {
 		
 		while (!StdIn.isEmpty()) {
 			String butts = StdIn.readString();
-			//StdOut.print(butts+"\n");
 			rq.enqueue(butts);
 		}
 		
