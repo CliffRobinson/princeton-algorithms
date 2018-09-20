@@ -16,6 +16,7 @@ public class Point implements Comparable<Point> {
     private final int x;     // x-coordinate of this point
     private final int y;     // y-coordinate of this point
 
+
     /**
      * Initializes a new point.
      *
@@ -59,7 +60,20 @@ public class Point implements Comparable<Point> {
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
-        return (double) (that.y-this.y)/(that.x - this.x);
+    	int numerator = (that.y-this.y);
+    	int denominator = (that.x - this.x);
+    	
+    	if (numerator == 0) { // deltaY is 0, therefore horizontal or degenerate
+    		if (denominator == 0) { // deltaY && deltaX is zero, slope is degenerate.
+    			return Double.NEGATIVE_INFINITY;
+    		} else { //slope is horizontal
+    			return 0;
+    		}
+    	} else if (denominator == 0) { //deltaX is 0, therefore vertical (degenerate already ruled out). 
+    		return Double.POSITIVE_INFINITY;
+    	}
+    	
+        return (double) numerator/denominator;
     }
 
     /**

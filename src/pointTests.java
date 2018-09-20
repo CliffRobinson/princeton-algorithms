@@ -66,6 +66,7 @@ public class pointTests {
 		Point b = new Point(2,2);
 		Point c = new Point(4,4);
 		Point d = new Point(5,1);
+		Point e = new Point(1,1);
 		
 		//Test 10: p0.slopeTo(a), expect 5.
 		double dExpected = 5.0;
@@ -116,6 +117,22 @@ public class pointTests {
 		dExpected = (double) -3.0;
 		dActual = a.slopeTo(b);
 		Suite.test(dExpected, dActual, n++);
+		
+		//Test 20: e.slopeTo(d), horizontal, expect 0;
+		dExpected = 0.0;
+		dActual = e.slopeTo(d);
+		Suite.test(dExpected, dActual, n++);
+		
+		//Test 21: e.slopeTo(a), vertical, expect positive infinity;
+		dExpected = (double) Integer.MAX_VALUE;
+		dActual = e.slopeTo(a);
+		Suite.test(dExpected, dActual, n++);
+		
+		//Test 22: e.slopeTo(e), degenerate, expect negative infinity;
+		dExpected = (double) Integer.MIN_VALUE;
+		dActual = e.slopeTo(e);
+		Suite.test(dExpected, dActual, n++);
+		
 	}
 
 }
