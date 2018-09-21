@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 
 public class pointTests {
 
@@ -124,15 +126,31 @@ public class pointTests {
 		Suite.test(dExpected, dActual, n++);
 		
 		//Test 21: e.slopeTo(a), vertical, expect positive infinity;
-		dExpected = (double) Integer.MAX_VALUE;
+		dExpected = Double.POSITIVE_INFINITY;
 		dActual = e.slopeTo(a);
 		Suite.test(dExpected, dActual, n++);
 		
 		//Test 22: e.slopeTo(e), degenerate, expect negative infinity;
-		dExpected = (double) Integer.MIN_VALUE;
+		dExpected = Double.NEGATIVE_INFINITY;
 		dActual = e.slopeTo(e);
 		Suite.test(dExpected, dActual, n++);
 		
+		//Test 23: slopeComparator with a & b
+		Comparator<Point> p0c = p0.slopeOrder();
+		expected = 1;
+		actual = p0c.compare(a, b);
+		Suite.test(expected, actual, n++);
+		
+		//Test 24: slopeComparator with b & a
+		expected = -1;
+		actual = p0c.compare(b, a);
+		Suite.test(expected, actual, n++);
+		
+		//Test 25: slopeComparator with b & c
+		expected = 0;
+		actual = p0c.compare(b, c);
+		Suite.test(expected, actual, n++);
+	
 	}
 
 }

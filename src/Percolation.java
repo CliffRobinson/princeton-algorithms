@@ -72,7 +72,7 @@ public class Percolation {
 	
 			System.out.println(boundary);
 	
-			for (int i = 1; i < this.grid.length ; i++) {
+			for (int i = 1; i < this.grid.length; i++) {
 				System.out.print("*");
 				for (int j = 1; j <this.grid[i].length; j++) {
 					if(this.isOpen(i, j) == false) {
