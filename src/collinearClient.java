@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
 
 
 public class collinearClient {
@@ -11,7 +12,7 @@ public class collinearClient {
 			in = new In(args[0]);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			String file = "collinearData/" + "input300.txt";
+			String file = "collinearData/" + "input6.txt";
 			in = new In(file);
 		}
 	    int n = in.readInt();
@@ -33,11 +34,11 @@ public class collinearClient {
 	    StdDraw.show();
 
 	    // print and draw the line segments
-//	    FastCollinearPoints collinear = new FastCollinearPoints(points);
-//	    for (LineSegment segment : collinear.segments()) {
-//	        StdOut.println(segment);
-//	        segment.draw();
-//	    }
-//	    StdDraw.show();
+	    BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+	    for (LineSegment segment : collinear.segments()) {
+	        StdOut.println(segment);
+	        segment.draw();
+	    }
+	    StdDraw.show();
 	}
 }
