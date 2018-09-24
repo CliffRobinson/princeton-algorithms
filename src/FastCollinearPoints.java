@@ -39,13 +39,16 @@ public class FastCollinearPoints {
 					j++;
 					if (j == tempPoints.length) {
 						i++;
+						j = i+1;
 					}
 				} else {
 					if (j-i >= (LINE_LENGTH-1)) {
-						segmentQueue.enqueue(new LineSegment(points[i], points[j]));
-						i++;
-						j = i+1;
+						System.out.println("Found a new segment");
+						numberOfSegments++;
+						segmentQueue.enqueue(new LineSegment(tempPoints[i], tempPoints[j-1]));
 					}
+					i++;
+					j = i+1;
 				}
 			}
 		}

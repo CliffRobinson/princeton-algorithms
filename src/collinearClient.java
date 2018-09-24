@@ -12,7 +12,7 @@ public class collinearClient {
 			in = new In(args[0]);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			String file = "collinearData/" + "input6.txt";
+			String file = "collinearData/" + "input20.txt";
 			in = new In(file);
 		}
 	    int n = in.readInt();
@@ -29,12 +29,13 @@ public class collinearClient {
 	    StdDraw.setYscale(0, 32768);
 	    for (Point p : points) {
 	        p.draw();
-	        System.out.println("Printing: " + p);
+	        //System.out.println("Printing: " + p);
 	    }
 	    StdDraw.show();
 
 	    // print and draw the line segments
-	    BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+	    FastCollinearPoints collinear = new FastCollinearPoints(points);
+	    //BruteCollinearPoints collinear = new BruteCollinearPoints(points);
 	    for (LineSegment segment : collinear.segments()) {
 	        StdOut.println(segment);
 	        segment.draw();

@@ -34,11 +34,11 @@ public class BruteCollinearPoints {
 		//Need to get every permutation.
 		this.n = points.length;
 		this.Pn = 0;
-		this.truePn = f(n)/(f(PERM_SIZE)* f(n-PERM_SIZE));
+		//this.truePn = f(n)/(f(PERM_SIZE)* f(n-PERM_SIZE));
 		this.tempSegs = new LinkedQueue<LineSegment>();
 		this.numberOfSegments = 0;
 		System.out.printf("n is %d, Pn is %d\n", n, truePn);
-		
+		Arrays.sort(points);
 		getPerms(points);
 		
 		segments = new LineSegment[numberOfSegments];
@@ -48,12 +48,14 @@ public class BruteCollinearPoints {
 			//System.out.println("Adding to index "+i);
 			i++;
 		}
+
+		System.out.printf("Found %d segments.\n", numberOfSegments);
 		
-		if (Pn == truePn) {
-			System.out.printf("Expected %d permutations, got %d, correct number found!\n", truePn, Pn);
-		} else {
-			System.out.printf("Expected %d permutations, got %d, incorrect number found\n", truePn, Pn);
-		}
+//		if (Pn == truePn) {
+//			System.out.printf("Expected %d permutations, got %d, correct number found!\n", truePn, Pn);
+//		} else {
+//			System.out.printf("Expected %d permutations, got %d, incorrect number found\n", truePn, Pn);
+//		}
 	}
 	
 	private void getPerms(Point[] points) {
@@ -100,12 +102,12 @@ public class BruteCollinearPoints {
 	
 	private void checkForLine(Point[] points) {
 		if (points.length != PERM_SIZE) System.out.println("Wrong number of points checked");
-		Arrays.sort(points);
+		//Arrays.sort(points);
 		if(	points[0].slopeTo(points[1]) == points[1].slopeTo(points[2]) && 	// a == b
 			points[0].slopeTo(points[1]) == points[2].slopeTo(points[3]) ) {	// a == c
 			tempSegs.enqueue(new LineSegment(points[0], points[3]));
 			numberOfSegments++;
-			System.out.println("Found a new line segment");
+			//System.out.println("Found a new line segment");
 		}		
 	}
 	
