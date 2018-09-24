@@ -4,14 +4,14 @@ import edu.princeton.cs.algs4.ResizingArrayQueue;
 
 
 public class BruteCollinearPoints {
-	private static final int PERM_SIZE = 2;
+	private static final int PERM_SIZE = 4;
 	private static Point[] test = {
 			new Point(0,0),
 			new Point(1,1),
 			new Point(2,2),
-//			new Point(3,3),
-//			new Point(4,4),
-//			new Point(5,5)
+			new Point(3,3),
+			new Point(4,4),
+			new Point(5,5)
 
 	};
 	private int n;
@@ -44,35 +44,42 @@ public class BruteCollinearPoints {
 	}
 	
 	private void getPerms(Point[] points) {
-		Point[] permSoFar = //{new Point(0,0), new Point(1,1)}; 
-				new Point[0];
+		//getIterativePerms(points);
+		Point[] permSoFar = new Point[0];
+		int nextIndex = 0;
 		int generation = 0;
-		getPerms(points, permSoFar, generation);
+		getRecursivePerms(points, permSoFar, nextIndex, generation);
 	}
 	
-	private void getPerms(Point[] points, Point[] permSoFar, int generation) {
+	private void getRecursivePerms(Point[] points, Point[] permSoFar, int nextIndex, int generation) {
 		generation++;
-		//if (Pn == truePn) return;
 		if (permSoFar.length == PERM_SIZE) {
 			System.out.printf("New perm found: %s,\n", Arrays.toString(permSoFar));
 			Pn++;
 		} else {
-			for (int i = 0; i < PERM_SIZE - permSoFar.length; i++) {
-				//System.out.printf("Gen %d outer loop iteration %d start\n", generation, i);
-				Point[] permNow = new Point[permSoFar.length+1];
+			int dI = points.length - PERM_SIZE;
+			for (int i = nextIndex; i <= (permSoFar.length+dI); i++) {
+				Point[] permNow = new Point[permSoFar.length + 1];
 				for (int j = 0; j < permSoFar.length; j++) {
 					permNow[j] = permSoFar[j];
 				}
-				//System.out.printf("permNow is: %s\n",Arrays.toString(permNow));
-				
-				for (int k = permSoFar.length; k < points.length; k++) {
-					System.out.printf("Gen %d inner loop iteration %d start\n", generation, k);
-					permNow[permNow.length-1] = points[k];
-					//System.out.printf("permNow is: %s\n",Arrays.toString(permNow));
-					getPerms(points, permNow, generation);
-					//System.out.printf("Gen %d inner loop iteration %d end\n", generation, k);
+				permNow[permNow.length-1] = points[i];
+				getRecursivePerms(points, permNow, i+1, generation);
+			}	
+			
+		}
+	}
+	
+	private void getIterativePerms(Point[] points) {
+		int dI = points.length - 4; //PERM_SIZE;
+		for (int i = 0; i <= dI; i++) {
+			for (int j = (i+1) ; j <= (dI+1) ;j++) {
+				for (int k = (j+1) ; k <= (dI+2) ;k++) {
+					for (int l = k+1; l < points.length; l++) {
+					Pn++;
+					System.out.printf("Perm is: %s, %s, %s, %s\n",i,j,k,l );
+					}
 				}
-				//System.out.printf("Gen %d outer loop iteration %d end\n", generation, i);
 			}
 		}
 	}
@@ -101,11 +108,6 @@ public class BruteCollinearPoints {
 	}
 	
 	public static void main(String[] args) {
-
-//		for (int i = 4; i < 8; i++) {
-//			BruteCollinearPoints b = new BruteCollinearPoints(new Point[i]);
-//		}
-//		
 
 		System.out.printf("Array is: %s\n", Arrays.toString(test));
 		BruteCollinearPoints b = new BruteCollinearPoints(test);
