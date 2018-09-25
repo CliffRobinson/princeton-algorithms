@@ -67,7 +67,7 @@ public class Point implements Comparable<Point> {
     		if (denominator == 0) { // deltaY && deltaX is zero, slope is degenerate.
     			return Double.NEGATIVE_INFINITY;
     		} else { //slope is horizontal
-    			return 0;
+    			return 0/1.0;
     		}
     	} else if (denominator == 0) { //deltaX is 0, therefore vertical (degenerate already ruled out). 
     		return Double.POSITIVE_INFINITY;

@@ -12,7 +12,7 @@ public class collinearClient {
 			in = new In(args[0]);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			String file = "collinearData/" + "input20.txt";
+			String file = "collinearData/" + "grid4x4.txt";
 			in = new In(file);
 		}
 	    int n = in.readInt();
@@ -34,12 +34,16 @@ public class collinearClient {
 	    StdDraw.show();
 
 	    // print and draw the line segments
-	    FastCollinearPoints collinear = new FastCollinearPoints(points);
-	    //BruteCollinearPoints collinear = new BruteCollinearPoints(points);
-	    for (LineSegment segment : collinear.segments()) {
+	    System.out.println("Fast: ");
+	    FastCollinearPoints collinearA = new FastCollinearPoints(points);
+	    System.out.printf("Fast found %d segments.\n", collinearA.numberOfSegments());
+	    System.out.println("Brute: ");
+	    BruteCollinearPoints collinearB = new BruteCollinearPoints(points);
+	    System.out.printf("Brute found %d segments.\n", collinearB.numberOfSegments());
+	    for (LineSegment segment : collinearB.segments()) {
 	        StdOut.println(segment);
 	        segment.draw();
 	    }
-	    StdDraw.show();
+	    //StdDraw.show();
 	}
 }
