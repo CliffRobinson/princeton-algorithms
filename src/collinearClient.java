@@ -21,6 +21,7 @@ public class collinearClient {
 	        int x = in.readInt();
 	        int y = in.readInt();
 	        points[i] = new Point(x, y);
+	        System.out.printf("Point %d is %s\n", i, points[i].toString());
 	    }
 
 	    // draw the points
@@ -44,6 +45,6 @@ public class collinearClient {
 	        StdOut.println(segment);
 	        segment.draw();
 	    }
-	    //StdDraw.show();
+	    StdDraw.show();
 	}
 }

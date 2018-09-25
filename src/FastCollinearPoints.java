@@ -10,6 +10,7 @@ public class FastCollinearPoints {
 	private LinkedQueue<LineSegment> segmentQueue;
 	private LineSegment[] segments;
 	private static final int LINE_LENGTH = 4;
+	private String prevSegString;
 	
 	public FastCollinearPoints(Point[] inputPoints) {
 		
@@ -25,7 +26,7 @@ public class FastCollinearPoints {
 			
 		this.numberOfSegments = 0;
 		this.segmentQueue = new LinkedQueue<LineSegment>();
-				
+		this.prevSegString = "";		
 		//Find all segments.
 		
 		for (int origin = 0; origin < points.length; origin++) {														//For every point, which we will refer to as the origin
@@ -86,7 +87,7 @@ public class FastCollinearPoints {
 	}
 	
 	public LineSegment[] segments() {
-		return segments;
+		return segments.clone();
 	}
 	
 	public int numberOfSegments() {
@@ -97,11 +98,16 @@ public class FastCollinearPoints {
 		//System.out.printf("Slopes between %d and % d are equal, seeing if that's big enough.\n", i,j);
 		if (j - i >= (LINE_LENGTH-2) ) {
 			LineSegment newSegment = new LineSegment(points[0], points[j]);
-			System.out.printf("NEW SEGMENT FOUND: %s\n", newSegment.toString());
+			//System.out.printf("Seeing if new seg %s == prev seg %s\n", newSegment.toString(), prevSeg);
+			if (!newSegment.toString().equals(prevSegString)) {
+			prevSegString = newSegment.toString();
+			//System.out.printf("NEW SEGMENT FOUND: %s\n", newSegment.toString());
 			numberOfSegments++;
 			segmentQueue.enqueue(newSegment);
-			newSegment.draw();
-			StdDraw.show();
+			//newSegment.draw();
+			//StdDraw.show();
+			}
+
 			return true;
 		} else {
 			return false;
